@@ -6,12 +6,16 @@
     data() {
         return {
             apartments: [],
+            rooms: 0,
+            beds: 0,
         }
     },
     methods: {
-        getApartments() {
+        getApartments(rooms, beds) {
             axios.get('http://127.0.0.1:8000/api/apartments', {
                 params: {
+                    rooms: rooms,
+                    beds: beds
                 }
             })
             .then( response => {
@@ -24,10 +28,16 @@
         },
         getRandomArbitrary(min, max) {
             return Math.random() * (max - min) + min;
+        },
+        roomChange(room) {
+            this.rooms = room;
+        },
+        bedChange(bed) {
+            this.beds = bed;
         }
     },
     created() {
-        this.getApartments();
+        this.getApartments(this.rooms, this.beds);
     }
     }
 </script>
@@ -35,6 +45,38 @@
 <template>
     <div class="container-fluid mt-4 px-sm-2 px-md-4  px-xl-5 my_container">
         <div class="row justify-content-center ">
+            <div class="col-12 mb-4 d-flex justify-content-end ">
+                <button class="my-btn rounded d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal">
+                    <img src="../assets/img/filter.svg" class="me-1">
+                    Filter
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modal" tabi="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalLabel">Filters</h1>
+                        </div>
+                        <div class="modal-body">
+                            <h2 class="fs-3">Stanze e letti</h2>
+                            <p>Stanze</p>
+                            <div class="button-wrapper d-flex mb-4">
+                                <button class="btn" :class="this.rooms == 0 ? 'active' : '' " @click="roomChange(0)">Qualsiasi</button>
+                                <button v-for="i in 8" class="btn" :class="this.rooms == i ? 'active' : '' " @click="roomChange(i)">{{ i == 8 ? i + '+' : i}}</button>
+                            </div>
+                            <p>Letti</p>
+                            <div class="button-wrapper d-flex">
+                                <button class="btn" :class="this.beds == 0 ? 'active' : '' " @click="bedChange(0)">Qualsiasi</button>
+                                <button v-for="i in 8" class="btn" :class="this.beds == i ? 'active' : '' " @click="bedChange(i)">{{ i == 8 ? i + '+' : i}}</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal" @click="getApartments(this.beds);">Mostra</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-11 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-3" v-for="apartment in apartments">
                 <div class="my-card">
                     <div class="img-wrapper position-relative mb-2 rounded-4 overflow-hidden ">
@@ -64,8 +106,44 @@
 <style lang="scss" scoped>
 @use '../assets/scss/partials/variables' as *;
 
+.active {
+    background-color: $primary-color;
+    color: white;
+}
+
 .text-secondary {
     color: $secondary-color;
+}
+
+.modal {
+    --bs-modal-width: 800px;
+}
+
+.modal-dialog {
+
+    #modalLabel {
+        color: $primary-color;
+        font-weight: 600;
+    }
+
+    .modal-body {
+
+        button {
+            padding: 7px 23px;
+            margin-right: 0.5rem;
+            border: 1px solid #e7e7e7;
+            border-radius: 25px;
+
+            &:hover {
+                border-color: $primary-color;
+            }
+        }
+    }
+
+    .modal-footer button {
+        background-color: $primary-color;
+        color: white;
+    }
 }
 
 .card-cover {
@@ -107,4 +185,17 @@
     color: $text-color;
     line-height: 20px;
 }
+
+.my-btn {
+    padding: 10px 15px;
+    border: 1px solid #e7e7e7;
+    background-color: transparent;
+    font-size: 13px;
+
+    img {
+        width: 15px;
+        height: 15px;
+    }
+}
+
 </style>

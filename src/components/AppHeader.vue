@@ -16,6 +16,20 @@
                 <img src="../assets/img/logoBoolBnB-desktop.png" height="60">
             </RouterLink>
 
+            <div class="navbar-nav ms-auto">
+                <div class="input-wrapper d-flex rounded-end-5 rounded-start-5">
+                    <div class="input-container rounded-start-5 d-flex flex-column justify-content-center ">
+                        <label class="">Dove</label>
+                        <input type="text" class="" placeholder="Cerca destinazione">
+                    </div>
+                    <div class="button-wrapper d-flex justify-content-center align-items-center ">
+                        <button class="search rounded-circle d-flex justify-content-center align-items-center ">
+                            <img src="../assets/img/search.svg">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                     <button type="button" class="btn border border-secondary rounded-start-5 rounded-end-5 d-flex py-2 border-opacity-50 mb-1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,4 +48,56 @@
 
 <style lang="scss" scoped>
 
+@use '../assets/scss/partials/variables' as *;
+
+    .input-wrapper {
+        width: 500px;
+        height: 60px;
+        border: 1px solid #e7e7e7;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+        .input-container {
+            width: 90%;
+            
+            label {
+                padding: 0 25px;
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            input {
+                width: 100%;
+                border: none;
+                border-radius: 25px;
+                padding: 0 20px;
+                margin-left: 5px;
+                
+                &:focus {
+                    outline: none;
+                }
+
+                &::placeholder {
+                    font-size: 15px;
+                }
+            }
+        }
+
+        .button-wrapper {
+            width: 10%;
+            padding-right: 3px;
+            
+            button {
+                width: 40px;
+                height: 40px;
+                background-color: $primary-color;
+                color: white;
+                border: none;
+
+                img {
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+        }
+    }
 </style>
