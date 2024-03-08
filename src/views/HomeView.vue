@@ -19,7 +19,7 @@
                 }
             })
             .then( response => {
-                console.log(response.data.results);
+                console.log(response);
                 this.apartments = response.data.results;
             })
             .catch(function (error) {
@@ -62,16 +62,16 @@
                             <p>Stanze</p>
                             <div class="button-wrapper d-flex mb-4">
                                 <button class="btn" :class="this.rooms == 0 ? 'active' : '' " @click="roomChange(0)">Qualsiasi</button>
-                                <button v-for="i in 8" class="btn" :class="this.rooms == i ? 'active' : '' " @click="roomChange(i)">{{ i == 8 ? i + '+' : i}}</button>
+                                <button v-for="i in 8" class="btn" :class="this.rooms == i ? 'active' : '' " @click="roomChange(i)">{{ i }}</button>
                             </div>
                             <p>Letti</p>
                             <div class="button-wrapper d-flex">
                                 <button class="btn" :class="this.beds == 0 ? 'active' : '' " @click="bedChange(0)">Qualsiasi</button>
-                                <button v-for="i in 8" class="btn" :class="this.beds == i ? 'active' : '' " @click="bedChange(i)">{{ i == 8 ? i + '+' : i}}</button>
+                                <button v-for="i in 8" class="btn" :class="this.beds == i ? 'active' : '' " @click="bedChange(i)">{{ i }}</button>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn" data-bs-dismiss="modal" @click="getApartments(this.beds);">Mostra</button>
+                            <button type="button" class="btn" data-bs-dismiss="modal" @click="getApartments(this.rooms, this.beds);">Mostra</button>
                         </div>
                         </div>
                     </div>
