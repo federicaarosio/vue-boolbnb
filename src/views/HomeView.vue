@@ -6,19 +6,27 @@
     data() {
         return {
             apartments: [],
+            range: 20,
             rooms: 0,
             beds: 0,
             services: [],
             filteredServices: [],
         }
     },
+    watch: {
+        address(newAddress, oldAddress) {
+            this.getApartments(this.rooms, this.beds, this.filteredServices, this.address, this.range);
+        }
+    },
     methods: {
-        getApartments(rooms, beds, services) {
+        getApartments(rooms, beds, services, address, range) {
             axios.get('http://127.0.0.1:8000/api/apartments', {
                 params: {
                     rooms: rooms,
                     beds: beds,
-                    services: [services]
+                    services: [services],
+                    address: address,
+                    range: range
                 }
             })
             .then( response => {
@@ -52,9 +60,12 @@
             this.beds = bed;
         }
     },
+    props: {
+        address: String,
+    },
     created() {
         this.getServices();
-        this.getApartments(this.rooms, this.beds, this.filteredServices);
+        this.getApartments(this.rooms, this.beds, this.filteredServices, this.address, this.range);
     }
     }
 </script>
@@ -75,6 +86,12 @@
                             <h1 class="modal-title fs-5" id="modalLabel">Filters</h1>
                         </div>
                         <div class="modal-body">
+                            <h2 class="fs-3 mb-4">Distanza di Ricerca</h2>
+                            <div class="col-12 mb-4">
+                                <label for="range" class="form-label mb-3">Distanza: <span class="primary-color fw-bold ">{{ range }} km</span></label>
+                                <input type="range" v-model="range" class="form-range" min="20" max="50" step="5" id="range">
+                            </div>
+                            <hr>
                             <h2 class="fs-3 mb-4">Stanze e letti</h2>
                             <p>Stanze</p>
                             <div class="button-wrapper d-flex mb-4">
@@ -100,7 +117,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn" data-bs-dismiss="modal" @click="getApartments(this.rooms, this.beds, this.filteredServices);">Mostra</button>
+                            <button type="button" class="btn" data-bs-dismiss="modal" @click="getApartments(this.rooms, this.beds, this.filteredServices, this.address, this.range);">Mostra</button>
                         </div>
                         </div>
                     </div>
@@ -135,6 +152,28 @@
 <style lang="scss" scoped>
 @use '../assets/scss/partials/variables' as *;
 
+
+.form-range::-webkit-slider-thumb {
+    background-color: $primary-color !important;
+    box-shadow: none;
+    
+    &:active {
+        box-shadow: 0 0 0 0.25rem rgba(159, 145, 204, 0.3) !important;
+    }
+
+    &:focus {
+        box-shadow: 0 0 0 0.25rem rgba(159, 145, 204, 0.3) !important;
+    }
+    &:checked {
+        box-shadow: 0 0 0 0.25rem rgba(159, 145, 204, 0.3) !important;
+    }
+    &:enabled {
+        
+        box-shadow: 0 0 0 0.25rem rgba(159, 145, 204, 0.3) !important;
+    }
+}
+
+
 .my-check {
 
     &:hover {
@@ -164,6 +203,10 @@
 
 .text-secondary {
     color: $secondary-color;
+}
+
+.primary-color {
+    color: $primary-color;
 }
 
 .modal {

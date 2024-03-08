@@ -1,6 +1,16 @@
 <script>
     export default {
-    name: "AppHeader"
+    name: "AppHeader",
+    data() {
+        return {
+            address: '',
+        }
+    },
+    methods: {
+        addAddressFilter() {
+            this.$emit('addressFilter', this.address);
+        }
+    }
     }
 </script>
 
@@ -20,7 +30,7 @@
                 <div class="input-wrapper d-flex rounded-end-5 rounded-start-5">
                     <div class="input-container rounded-start-5 d-flex flex-column justify-content-center ">
                         <label class="">Dove</label>
-                        <input type="text" class="" placeholder="Cerca destinazione">
+                        <input type="text" v-model="address" @keyup.enter="addAddressFilter" placeholder="Cerca destinazione">
                     </div>
                     <div class="button-wrapper d-flex justify-content-center align-items-center ">
                         <button class="search rounded-circle d-flex justify-content-center align-items-center ">

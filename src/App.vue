@@ -5,13 +5,23 @@
     name: "AppVue",
     components: {
         AppHeader,
+    },
+    data() {
+        return {
+            address: '',
+        }
+    },
+    methods: {
+        addressFilterHandler(address) {
+            this.address = address;
+        }
     }
     }
 </script>
 
 <template>
-    <AppHeader />
-    <RouterView />
+    <AppHeader @addressFilter="addressFilterHandler"/>
+    <RouterView :address="address"/>
 </template>
 
 <style lang="scss" scoped>
