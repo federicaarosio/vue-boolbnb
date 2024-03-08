@@ -8,19 +8,35 @@
             apartments: [],
             rooms: 0,
             beds: 0,
+            services: [],
+            filteredServices: [],
         }
     },
     methods: {
-        getApartments(rooms, beds) {
+        getApartments(rooms, beds, services) {
             axios.get('http://127.0.0.1:8000/api/apartments', {
                 params: {
                     rooms: rooms,
-                    beds: beds
+                    beds: beds,
+                    services: [services]
                 }
             })
             .then( response => {
                 console.log(response);
                 this.apartments = response.data.results;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
+        getServices() {
+            axios.get('http://127.0.0.1:8000/api/services', {
+                params: {
+                }
+            })
+            .then( response => {
+                console.log(response.data.results);
+                this.services = response.data.results;
             })
             .catch(function (error) {
                 console.log(error);
@@ -37,7 +53,8 @@
         }
     },
     created() {
-        this.getApartments(this.rooms, this.beds);
+        this.getServices();
+        this.getApartments(this.rooms, this.beds, this.filteredServices);
     }
     }
 </script>
@@ -58,20 +75,32 @@
                             <h1 class="modal-title fs-5" id="modalLabel">Filters</h1>
                         </div>
                         <div class="modal-body">
-                            <h2 class="fs-3">Stanze e letti</h2>
+                            <h2 class="fs-3 mb-4">Stanze e letti</h2>
                             <p>Stanze</p>
                             <div class="button-wrapper d-flex mb-4">
                                 <button class="btn" :class="this.rooms == 0 ? 'active' : '' " @click="roomChange(0)">Qualsiasi</button>
                                 <button v-for="i in 8" class="btn" :class="this.rooms == i ? 'active' : '' " @click="roomChange(i)">{{ i }}</button>
                             </div>
                             <p>Letti</p>
-                            <div class="button-wrapper d-flex">
+                            <div class="button-wrapper d-flex mb-4">
                                 <button class="btn" :class="this.beds == 0 ? 'active' : '' " @click="bedChange(0)">Qualsiasi</button>
                                 <button v-for="i in 8" class="btn" :class="this.beds == i ? 'active' : '' " @click="bedChange(i)">{{ i }}</button>
                             </div>
+                            <hr>
+                            <h2 class="fs-3 mb-4">Servizi</h2>
+                            <div class="row">
+                                <div class="col-5 mb-3" v-for="service in services">
+                                    <div class="form-check">
+                                        <input class="form-check-input my-check" type="checkbox" v-model="filteredServices" :value="service.id" :id="'Check-' + service.id">
+                                        <label class="form-check-label" :for="'Check-' + services.id">
+                                            {{ service.name }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn" data-bs-dismiss="modal" @click="getApartments(this.rooms, this.beds);">Mostra</button>
+                            <button type="button" class="btn" data-bs-dismiss="modal" @click="getApartments(this.rooms, this.beds, this.filteredServices);">Mostra</button>
                         </div>
                         </div>
                     </div>
@@ -106,9 +135,31 @@
 <style lang="scss" scoped>
 @use '../assets/scss/partials/variables' as *;
 
+.my-check {
+
+    &:hover {
+        border-color: $primary-color;
+    }
+
+    &:checked {
+        border-color: $primary-color;
+        background-color: $primary-color;
+    }
+
+    &:focus {
+        border-color: $primary-color;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(159, 145, 204, 0.3);
+    }
+}
+
 .active {
     background-color: $primary-color;
     color: white;
+}
+
+.text-color {
+    color: $text-color;
 }
 
 .text-secondary {
