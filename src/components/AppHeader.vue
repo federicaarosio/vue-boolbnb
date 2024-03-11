@@ -16,7 +16,7 @@
 
 <template>
     <nav class="navbar navbar-expand navbar-light bg-white shadow-sm py-3">
-        <div class="container-fluid px-5">
+        <div class="px-5" :class=" this.$route.name == 'show' ? 'container' : 'container-fluid' ">
 
             <RouterLink class="navbar-brand d-md-none" to="/">
                 <img src="../assets/img/logoBoolBnB.png" height="60">
@@ -26,7 +26,7 @@
                 <img src="../assets/img/logoBoolBnB-desktop.png" height="60">
             </RouterLink>
 
-            <div class="navbar-nav ms-auto">
+            <div class="navbar-nav ms-auto d-none d-lg-block " :class=" this.$route.name == 'show' ? 'd-lg-none' : '' ">
                 <div class="input-wrapper d-flex rounded-end-5 rounded-start-5">
                     <div class="input-container rounded-start-5 d-flex flex-column justify-content-center ">
                         <label class="">Dove</label>

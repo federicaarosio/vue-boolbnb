@@ -124,7 +124,7 @@
                 </div>
             </div>
             <div class="col-11 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-3" v-for="apartment in apartments">
-                <div class="my-card">
+                <div class="my-card" @click="$router.push({ name: 'show', params: { id: apartment.id} })">
                     <div class="img-wrapper position-relative mb-2 rounded-4 overflow-hidden ">
                         <img :src="apartment.img_url" class="img-fluid rounded-4 card-cover">
                         <div class="position-absolute top-0 start-0 ms-3 mt-3 badge rounded-pill text-bg-light p-2 my-badge">
