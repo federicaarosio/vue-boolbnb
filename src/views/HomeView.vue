@@ -76,14 +76,14 @@
             <div class="col-12 mb-4 d-flex justify-content-end ">
                 <button class="my-btn rounded d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal">
                     <img src="../assets/img/filter.svg" class="me-1">
-                    Filter
+                    Filtri
                 </button>
                 <!-- Modal -->
                 <div class="modal fade" id="modal" tabi="-1" aria-labelledby="modalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalLabel">Filters</h1>
+                            <h1 class="modal-title fs-5" id="modalLabel">Filtri</h1>
                         </div>
                         <div class="modal-body">
                             <h2 class="fs-3 mb-4">Distanza di Ricerca</h2>

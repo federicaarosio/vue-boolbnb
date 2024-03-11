@@ -47,8 +47,8 @@
                         <img src="https://e7.pngegg.com/pngimages/717/24/png-clipart-computer-icons-user-profile-user-account-avatar-heroes-silhouette-thumbnail.png" width="25" height="">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="http://127.0.0.1:8000/">Login</a></li>
-                        <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">Register</a></li>
+                        <li><a class="dropdown-item" href="http://127.0.0.1:8000/">Accedi</a></li>
+                        <li><a class="dropdown-item" href="http://127.0.0.1:8000/register">Registrati</a></li>
                     </ul>
                 </li>
             </ul>
