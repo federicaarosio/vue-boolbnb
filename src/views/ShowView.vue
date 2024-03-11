@@ -1,6 +1,6 @@
 <script>
     import axios from 'axios'
-    import tt from "@tomtom-international/web-sdk-maps"
+    import tt from "@tomtom-international/web-sdk-maps";
 
     export default {
     name: "ShowView",
@@ -16,10 +16,23 @@
             .then( response => {
                 console.log(response.data.results);
                 this.apartment = response.data.results;
-                // this.createMap();
             }).catch( error => {
                 console.log(error);
             })
+        },
+        createMap() {
+            const map = tt.map({
+                key: "oKRqWPOdJQ9nZ4klEXeWzl7zVfRWCQhW",
+                container: "map",
+                center: [9.187319, 45.469114],
+                zoom: 17
+            });
+            map.addControl(new tt.FullscreenControl());
+            map.addControl(new tt.NavigationControl());
+            const marker = new tt.Marker({
+                color: '#9f91cc',
+            }).setLngLat([9.187319, 45.469114]).addTo(map);
+            console.log(marker.getElement())
         },
         getImageSize() {
             const img = this.$refs.image;
@@ -31,6 +44,9 @@
     },
     created() {
         this.getApartment();
+    },
+    mounted() {
+        this.createMap();
     }
     }
 </script>
@@ -80,12 +96,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <p class="fs-4 fw-semibold ">Dove sarai?</p>
-                    </div>
                 </div>
             </div>
             <div class="col-5">
+            </div>
+            <div class="row pb-5 ">
+                <div class="col-12">
+                    <hr>
+                    <p class="fs-4 fw-semibold mt-4 mb-3">Dove sarai?</p>
+                    <div id="map"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -102,5 +122,10 @@ hr {
 
 .my-svg {
     width: 25px;
+}
+
+#map {
+    width: 100%;
+    height: 500px;
 }
 </style>

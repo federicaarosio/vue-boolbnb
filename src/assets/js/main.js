@@ -1,4 +1,4 @@
-import '@/assets/scss/app.scss'
+import '../scss/app.scss'
 import 'bootstrap/scss/bootstrap.scss'
 import 'bootstrap/js/index.umd'
 

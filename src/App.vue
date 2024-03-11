@@ -24,6 +24,6 @@
     <RouterView :address="address"/>
 </template>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+@use './assets/scss/app.scss' as *;
 </style>
