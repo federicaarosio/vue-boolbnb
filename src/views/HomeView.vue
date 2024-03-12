@@ -24,7 +24,7 @@
                 params: {
                     rooms: rooms,
                     beds: beds,
-                    services: [services],
+                    services: services,
                     address: address,
                     range: range
                 }
@@ -122,6 +122,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div v-if=" apartments == '' " class="d-flex justify-content-center ">
+                <p class="fs-2">Nessun risultato disponibile</p>
             </div>
             <div class="col-11 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-3" v-for="apartment in apartments">
                 <div class="my-card" @click="$router.push({ name: 'show', params: { id: apartment.id} })">
