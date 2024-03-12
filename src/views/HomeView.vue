@@ -30,7 +30,7 @@
                 }
             })
             .then( response => {
-                console.log(response);
+                // console.log(response.data.results);
                 this.apartments = response.data.results;
             })
             .catch(function (error) {
@@ -43,7 +43,7 @@
                 }
             })
             .then( response => {
-                console.log(response.data.results);
+                // console.log(response.data.results);
                 this.services = response.data.results;
             })
             .catch(function (error) {
@@ -58,7 +58,7 @@
         },
         bedChange(bed) {
             this.beds = bed;
-        }
+        },
     },
     props: {
         address: String,
@@ -71,7 +71,7 @@
 </script>
 
 <template>
-    <div class="container-fluid mt-4 px-sm-2 px-md-4  px-xl-5 my_container">
+    <div class="container-fluid mt-4 px-sm-2 px-md-4 px-xl-5 my_container">
         <div class="row justify-content-center ">
             <div class="col-12 mb-4 d-flex justify-content-end ">
                 <button class="my-btn rounded d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal">
@@ -105,6 +105,7 @@
                             </div>
                             <hr>
                             <h2 class="fs-3 mb-4">Servizi</h2>
+                            {{ filteredServices }}
                             <div class="row">
                                 <div class="col-5 mb-3" v-for="service in services">
                                     <div class="form-check">

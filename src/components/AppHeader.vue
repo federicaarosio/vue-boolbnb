@@ -1,14 +1,45 @@
 <script>
+    import tt from '@tomtom-international/web-sdk-services';
+
     export default {
     name: "AppHeader",
     data() {
         return {
             address: '',
+            results: []
+        }
+    },
+    watch: {
+        address(newAddress, oldAddress) {
+            if(newAddress == '') {
+                this.results = [];
+            }
         }
     },
     methods: {
         addAddressFilter() {
             this.$emit('addressFilter', this.address);
+        },
+        search() {
+            tt.services.fuzzySearch({
+            key: "oKRqWPOdJQ9nZ4klEXeWzl7zVfRWCQhW",
+            query: this.address,
+            limit: 5,
+            countrySet: 'IT',
+            language: 'it-IT',
+            }).then((response) => {
+                console.log(response);
+                this.results = response.results;
+            });
+
+            if(this.address == '') {
+                this.results = []
+            }
+        },
+        setSearch(address) {
+            this.address = address;
+            this.results = [];
+            this.addAddressFilter();
         }
     }
     }
@@ -30,15 +61,32 @@
 
             <div class="col-4 d-flex justify-content-center ">
                 <div class="navbar-nav d-none d-lg-block " :class=" this.$route.name == 'show' ? 'd-lg-none' : '' ">
-                    <div class="input-wrapper d-flex rounded-end-5 rounded-start-5">
+                    <div class="input-wrapper d-flex rounded-end-5 rounded-start-5 position-relative ">
                         <div class="input-container rounded-start-5 d-flex flex-column justify-content-center ">
                             <label class="">Dove</label>
-                            <input type="text" v-model="address" @keyup.enter="addAddressFilter" placeholder="Cerca destinazione">
+                            <input type="text" v-model="address" @keyup.enter="addAddressFilter" @keyup=" address.length > 3 ? search() : '' " placeholder="Cerca destinazione">
                         </div>
                         <div class="button-wrapper d-flex justify-content-center align-items-center ">
                             <button class="search rounded-circle d-flex justify-content-center align-items-center ">
                                 <img src="../assets/img/search.svg">
                             </button>
+                        </div>
+                        <div v-if="results != '' " class="position-absolute my-results overflow-hidden ">
+                            <ul class="list-unstyled m-0">
+                                <li v-for="result in results" @click="setSearch(result.address.freeformAddress)">
+                                    <div v-if="result.entityType == 'Municipality'">
+                                        {{ result.address.municipality }}
+                                    </div>
+                                    <div  v-else-if="result.entityType == 'MunicipalitySubdivision'">
+                                        {{ result.address.municipality }},
+                                        {{ result.address.municipalitySubdivision }}
+                                    </div>
+                                    <div v-else>
+                                        {{ result.address.streetName }},
+                                        {{ result.address.municipality ? result.address.municipality : result.address.countrySecondarySubdivision }}
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -112,6 +160,23 @@
                 img {
                     width: 15px;
                     height: 15px;
+                }
+            }
+        }
+
+        .my-results {
+            width: 500px;
+            top: 70px;
+            padding: 1rem 0;
+            background-color: white;
+            border-radius: 30px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            z-index: 1;
+
+            li {
+                padding: 1.4rem;
+                &:hover {
+                    background-color: #f7f7f7;
                 }
             }
         }
