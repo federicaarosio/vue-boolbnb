@@ -8,6 +8,14 @@
         return {
             apartment: [],
             imageWidth: 0,
+            messageData: {
+                name: '',
+                surname: '',
+                email: '',
+                content: '',
+                apartment_id: '',
+            },
+            messageResponse: ''
         }
     },
     methods: {
@@ -40,6 +48,16 @@
         getRandomArbitrary(min, max) {
             return Math.random() * (max - min) + min;
         },
+        async sendMessage() {
+            this.messageData.apartment_id = this.apartment.id;
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/messages', this.messageData);
+                console.log(response);
+                this.messageResponse = response.data;
+            } catch (error) {
+                console.error(error);
+            }
+        }
     },
     created() {
         this.getApartment();
@@ -53,6 +71,7 @@
 <template>
     <div class="container mt-3">
         <div class="row">
+            {{ messageResponse }}
             <div class="col-12 mb-3 d-flex justify-content-between align-items-center">
                 <h1 class="fs-2">{{ apartment.title }}</h1>
                 <div class="button-wrapper d-flex align-items-center">
@@ -118,22 +137,22 @@
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label for="exampleDropdownFormEmail2" class="form-label">Nome</label>
-                                        <input type="email" class="form-control" id="exampleDropdownFormEmail2">
+                                        <input type="email" class="form-control" v-model="messageData.name">
                                     </div>
                                     <div class="col-6">
                                         <label for="exampleDropdownFormEmail2" class="form-label">Cognome</label>
-                                        <input type="email" class="form-control" id="exampleDropdownFormEmail2">
+                                        <input type="email" class="form-control" v-model="messageData.surname">
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label for="exampleDropdownFormEmail2" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="exampleDropdownFormEmail2">
+                                        <input type="email" class="form-control" v-model="messageData.email">
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label for="exampleFormControlTextarea1" class="form-label">Messaggio</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea class="form-control" v-model="messageData.content" rows="3"></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <button type="submit" class="btn my-bg-primary">Invia</button>
+                                        <button type="submit" class="btn my-bg-primary" @click="sendMessage()">Invia</button>
                                     </div>
                                 </div>
                             </div>
