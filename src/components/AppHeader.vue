@@ -22,7 +22,7 @@
         },
         search() {
             tt.services.fuzzySearch({
-            key: "oKRqWPOdJQ9nZ4klEXeWzl7zVfRWCQhW",
+            key: "rBePA1fHaJT71C0Mp1YWQFMD9dcMym9E",
             query: this.address,
             limit: 5,
             countrySet: 'IT',

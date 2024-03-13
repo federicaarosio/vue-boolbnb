@@ -30,7 +30,7 @@
         },
         createMap() {
             const map = tt.map({
-                key: "oKRqWPOdJQ9nZ4klEXeWzl7zVfRWCQhW",
+                key: "rBePA1fHaJT71C0Mp1YWQFMD9dcMym9E",
                 container: "map",
                 center: [9.187319, 45.469114],
                 zoom: 17
