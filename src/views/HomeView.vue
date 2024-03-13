@@ -196,23 +196,6 @@
     }
 }
 
-.active {
-    background-color: $primary-color;
-    color: white;
-}
-
-.text-color {
-    color: $text-color;
-}
-
-.text-secondary {
-    color: $secondary-color;
-}
-
-.primary-color {
-    color: $primary-color;
-}
-
 .modal {
     --bs-modal-width: 800px;
 }

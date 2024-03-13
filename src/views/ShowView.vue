@@ -32,11 +32,10 @@
             const marker = new tt.Marker({
                 color: '#9f91cc',
             }).setLngLat([9.187319, 45.469114]).addTo(map);
-            console.log(marker.getElement())
         },
         getImageSize() {
             const img = this.$refs.image;
-            this.imageWidth = img.clientWidth;
+            this.imageWidth = img.naturalWidth;
         },
         getRandomArbitrary(min, max) {
             return Math.random() * (max - min) + min;
@@ -64,12 +63,12 @@
                 </div>
             </div>
             <div class="col-12 d-flex mb-3" :class=" imageWidth > 1000 ? 'justify-content-center' : '' ">
-                <img ref="image" :src="apartment.img_url" class="rounded-4" :class=" imageWidth > 1000 ? 'w-100' : '' " height="850" @load="getImageSize">
+                <img ref="image" :src="apartment.img_url" class="rounded-4 object-fit-cover " :class=" imageWidth > 1000 ? 'w-100' : '' " height="750" @load="getImageSize">
             </div>
             <div class="col-7">
                 <div class="row">
                     <div class="col-12">
-                        <p class="fs-5 fs-md-2 fw-semibold m-0">{{ apartment.address }}</p>
+                        <p class="fs-5 fs-md-2 fw-semibold m-0 pt-2">{{ apartment.address }}</p>
                         <p class="mb-1">{{ apartment.bed_number + 2 }} ospiti · {{ apartment.bed_number }} letti · {{ apartment.toilet_number }} bagni</p>
                         <span class="d-flex align-items-center ">
                             <img src="../assets/img/star.svg" height="15" class="me-1">
@@ -88,6 +87,11 @@
                         <hr>
                     </div>
                     <div class="col-12">
+                        <p class="fs-4 fw-semibold ">Descrizione</p>
+                        <p class="pb-3">{{ apartment.description }}</p>
+                        <hr>
+                    </div>
+                    <div class="col-12">
                         <p class="fs-4 fw-semibold ">Cosa troverai</p>
                         <div class="row">
                             <div class="col-5 d-flex mb-3" v-for="service in apartment.services">
@@ -98,7 +102,45 @@
                     </div>
                 </div>
             </div>
-            <div class="col-5">
+            <div class="col-5 py-2 ps-5">
+                <div class="card my-card ms-3 me-1 px-1">
+                    <div class="card-body">
+                        <p class="fs-4 fw-semibold mb-3">Contattaci</p>
+                        <p class="">Siamo entusiasti di farti conoscere il nostro nuovo appartamento disponibile! Per dettagli e domande, contattaci al più presto.</p>
+                        <button class="btn w-100 btn-lg my-bg-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Invia un messaggio</button>
+
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title primary-color" id="offcanvasRightLabel">Contattaci</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <label for="exampleDropdownFormEmail2" class="form-label">Nome</label>
+                                        <input type="email" class="form-control" id="exampleDropdownFormEmail2">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="exampleDropdownFormEmail2" class="form-label">Cognome</label>
+                                        <input type="email" class="form-control" id="exampleDropdownFormEmail2">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="exampleDropdownFormEmail2" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="exampleDropdownFormEmail2">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label">Messaggio</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn my-bg-primary">Invia</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center mt-3 mb-0 fs-6 ">Contattaci senza impegno!</p>
+                    </div>
+                </div>
             </div>
             <div class="row pb-5 ">
                 <div class="col-12">
@@ -112,6 +154,10 @@
 </template>
 
 <style lang="scss" scoped>
+.offcanvas.offcanvas-end {
+    width: 500px;
+}
+
 hr {
     background-color: #dddddd;
 }
@@ -127,5 +173,15 @@ hr {
 #map {
     width: 100%;
     height: 500px;
+}
+
+.my-card {
+    border: 1px solid #dddddd;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.btn:hover {
+    background-color: #9282c2;
+    color: white;
 }
 </style>

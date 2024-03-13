@@ -47,7 +47,7 @@
 
 <template>
     <nav class="navbar navbar-expand navbar-light bg-white shadow-sm py-3">
-        <div class="px-5" :class=" this.$route.name == 'show' ? 'container' : 'container-fluid' ">
+        <div :class=" this.$route.name == 'show' ? 'container' : 'container-fluid px-5' ">
 
             <div class="col-4">
                 <RouterLink class="navbar-brand d-md-none" to="/">
