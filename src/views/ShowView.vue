@@ -172,6 +172,8 @@
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/scss/app.scss' as *;
+
 .offcanvas.offcanvas-end {
     width: 500px;
 }

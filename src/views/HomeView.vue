@@ -11,6 +11,7 @@
             beds: 0,
             services: [],
             filteredServices: [],
+            sponsors: [],
         }
     },
     watch: {
@@ -32,6 +33,19 @@
             .then( response => {
                 // console.log(response.data.results);
                 this.apartments = response.data.results;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
+        getSponsors() {
+            axios.get('http://127.0.0.1:8000/api/sponsors', {
+                params: {
+                }
+            })
+            .then( response => {
+                // console.log(response.data.results);
+                this.sponsors = response.data.results;
             })
             .catch(function (error) {
                 console.log(error);
@@ -65,6 +79,7 @@
     },
     created() {
         this.getServices();
+        this.getSponsors();
         this.getApartments(this.rooms, this.beds, this.filteredServices, this.address, this.range);
     }
     }
@@ -142,10 +157,10 @@
                         <p class="mb-0 my-address">{{ apartment.address }}</p>
                         <p class="text-secondary fs-6">Offerto da {{ apartment.user.name }}</p>
                         <p></p>
-                        <span class="position-absolute top-0 end-0">
+                        <!-- <span class="position-absolute top-0 end-0">
                             <img src="../assets/img/star.svg" height="15">
                             {{ getRandomArbitrary(2, 5).toPrecision(2) }}
-                        </span>
+                        </span> -->
                     </div>
                 </div>
             </div>
@@ -154,7 +169,9 @@
 </template>
 
 <style lang="scss" scoped>
+@use '../assets/scss/app.scss' as *;
 @use '../assets/scss/partials/variables' as *;
+
 
 
 .form-range::-webkit-slider-thumb {
