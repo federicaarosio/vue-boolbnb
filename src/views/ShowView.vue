@@ -71,7 +71,6 @@
 <template>
     <div class="container mt-3">
         <div class="row">
-            {{ messageResponse }}
             <div class="col-12 mb-3 d-flex justify-content-between align-items-center">
                 <h1 class="fs-2">{{ apartment.title }}</h1>
                 <div class="button-wrapper d-flex align-items-center">
