@@ -20,6 +20,11 @@
         addAddressFilter() {
             this.$emit('addressFilter', this.address);
         },
+        resetFilter() {
+            if(this.address == '') {
+                this.$emit('addressFilter', '');
+            }
+        },
         search() {
             tt.services.fuzzySearch({
             key: "rBePA1fHaJT71C0Mp1YWQFMD9dcMym9E",
@@ -64,7 +69,7 @@
                     <div class="input-wrapper d-flex rounded-end-5 rounded-start-5 position-relative ">
                         <div class="input-container rounded-start-5 d-flex flex-column justify-content-center ">
                             <label class="">Dove</label>
-                            <input type="text" v-model="address" @keyup.enter="addAddressFilter" @keyup=" address.length > 3 ? search() : '' " placeholder="Cerca destinazione">
+                            <input type="text" v-model="address" @keyup.enter="resetFilter" @keyup=" address.length > 3 ? search() : '' " placeholder="Cerca destinazione">
                         </div>
                         <div class="button-wrapper d-flex justify-content-center align-items-center ">
                             <button class="search rounded-circle d-flex justify-content-center align-items-center ">
