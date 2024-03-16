@@ -240,9 +240,6 @@
 <style lang="scss" scoped>
 @use '../assets/scss/app.scss' as *;
 
-.my-close-button {
-}
-
 .my-alert {
     background-color: rgba(146, 130, 194, 0.6);
     color: rgb(255, 255, 255);
