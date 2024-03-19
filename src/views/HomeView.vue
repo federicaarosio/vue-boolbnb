@@ -2,93 +2,75 @@
     import axios from 'axios';
 
     export default {
-    name: "HomeView",
-    data() {
-        return {
-            apartments: [],
-            range: 10,
-            rooms: 0,
-            beds: 0,
-            services: [],
-            filteredServices: [],
-            sponsors: [],
-            randomInts: [],
-        }
-    },
-    watch: {
-        address(newAddress, oldAddress) {
+        name: "HomeView",
+        data() {
+            return {
+                apartments: [],
+                range: 10,
+                rooms: 0,
+                beds: 0,
+                services: [],
+                filteredServices: [],
+                sponsors: [],
+            }
+        },
+        watch: {
+            address(newAddress, oldAddress) {
+                this.getApartments(this.rooms, this.beds, this.filteredServices, this.address, this.range);
+            }
+        },
+        methods: {
+            getApartments(rooms, beds, services, address, range) {
+                axios.get('http://127.0.0.1:8000/api/apartments', {
+                    params: {
+                        rooms: rooms,
+                        beds: beds,
+                        services: services,
+                        address: address,
+                        range: range
+                    }
+                })
+                .then( response => {
+                    // console.log(response.data.results);
+                    this.apartments = response.data.results;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getServices() {
+                axios.get('http://127.0.0.1:8000/api/services')
+                .then( response => {
+                    // console.log(response.data.results);
+                    this.services = response.data.results;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            getRandomArbitrary(min, max) {
+                return Math.random() * (max - min) + min;
+            },
+            roomChange(room) {
+                this.rooms = room;
+            },
+            bedChange(bed) {
+                this.beds = bed;
+            },
+        },
+        props: {
+            address: String,
+        },
+        created() {
+            this.getServices();
             this.getApartments(this.rooms, this.beds, this.filteredServices, this.address, this.range);
         }
-    },
-    methods: {
-        getApartments(rooms, beds, services, address, range) {
-            axios.get('http://127.0.0.1:8000/api/apartments', {
-                params: {
-                    rooms: rooms,
-                    beds: beds,
-                    services: services,
-                    address: address,
-                    range: range
-                }
-            })
-            .then( response => {
-                // console.log(response.data.results);
-                this.apartments = response.data.results;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        },
-        getSponsors() {
-            axios.get('http://127.0.0.1:8000/api/sponsors', {
-                params: {
-                }
-            })
-            .then( response => {
-                // console.log(response.data.results);
-                this.sponsors = response.data.results;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        },
-        getServices() {
-            axios.get('http://127.0.0.1:8000/api/services', {
-                params: {
-                }
-            })
-            .then( response => {
-                // console.log(response.data.results);
-                this.services = response.data.results;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        },
-        getRandomArbitrary(min, max) {
-            return Math.random() * (max - min) + min;
-        },
-        roomChange(room) {
-            this.rooms = room;
-        },
-        bedChange(bed) {
-            this.beds = bed;
-        },
-    },
-    props: {
-        address: String,
-    },
-    created() {
-        this.getServices();
-        this.getSponsors();
-        this.getApartments(this.rooms, this.beds, this.filteredServices, this.address, this.range);
-    }
     }
 </script>
 
 <template>
     <div class="container-fluid mt-4 px-sm-2 px-md-4 px-xl-5 my_container">
-        <div class="row">
+        <div class="row justify-content-center justify-content-md-start ">
             <div class="col-12 mb-4 d-flex justify-content-between align-items-center">
                 <div>
                     <span class="badge rounded-pill text-bg-light fw-medium p-2 me-2 my-badge mb-2" data-bs-toggle="modal" data-bs-target="#modal" v-if="range != 10">
@@ -177,11 +159,6 @@
                     <div class="text-wrapper position-relative">
                         <p class="mb-0 my-address">{{ apartment.address }}</p>
                         <p class="text-secondary fs-6">Offerto da {{ apartment.user.name }}</p>
-                        <p></p>
-                        <!-- <span class="position-absolute top-0 end-0">
-                            <img src="../assets/img/star.svg" height="15">
-                            {{ getRandomArbitrary(2, 5).toPrecision(2) }}
-                        </span> -->
                     </div>
                 </div>
             </div>
@@ -345,5 +322,4 @@
         height: 15px;
     }
 }
-
 </style>

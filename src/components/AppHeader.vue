@@ -2,56 +2,56 @@
     import tt from '@tomtom-international/web-sdk-services';
 
     export default {
-    name: "AppHeader",
-    data() {
-        return {
-            address: '',
-            results: []
-        }
-    },
-    watch: {
-        address(newAddress, oldAddress) {
-            if(newAddress == '') {
-                this.results = [];
-            }
-        }
-    },
-    methods: {
-        addAddressFilter() {
-            this.$emit('addressFilter', this.address);
-        },
-        resetFilter() {
-            if(this.address == '') {
-                this.$emit('addressFilter', '');
+        name: "AppHeader",
+        data() {
+            return {
+                address: '',
+                results: []
             }
         },
-        search() {
-            tt.services.fuzzySearch({
-            key: "rBePA1fHaJT71C0Mp1YWQFMD9dcMym9E",
-            query: this.address,
-            limit: 5,
-            countrySet: 'IT',
-            language: 'it-IT',
-            }).then((response) => {
-                console.log(response);
-                this.results = response.results;
-            });
+        watch: {
+            address(newAddress, oldAddress) {
+                if(newAddress == '') {
+                    this.results = [];
+                }
+            }
+        },
+        methods: {
+            addAddressFilter() {
+                this.$emit('addressFilter', this.address);
+            },
+            resetFilter() {
+                if(this.address == '') {
+                    this.$emit('addressFilter', '');
+                }
+            },
+            search() {
+                tt.services.fuzzySearch({
+                key: "rBePA1fHaJT71C0Mp1YWQFMD9dcMym9E",
+                query: this.address,
+                limit: 5,
+                countrySet: 'IT',
+                language: 'it-IT',
+                }).then((response) => {
+                    // console.log(response);
+                    this.results = response.results;
+                });
 
-            if(this.address == '') {
-                this.results = []
+                if(this.address == '') {
+                    this.results = []
+                }
+            },
+            setSearch(address) {
+                this.address = address;
+                this.results = [];
+                this.addAddressFilter();
             }
-        },
-        setSearch(address) {
-            this.address = address;
-            this.results = [];
-            this.addAddressFilter();
         }
-    }
     }
 </script>
 
 <template>
-    <nav class="navbar navbar-expand navbar-light bg-white shadow-sm py-3">
+    <nav class="navbar navbar-expand navbar-light bg-white shadow-sm py-3" :class=" this.$route.name == 'show' ? 'd-none d-md-block' : '' ">
         <div :class=" this.$route.name == 'show' ? 'container' : 'container-fluid px-5' ">
 
             <div class="col-4">
@@ -101,8 +101,10 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <button type="button" class="btn border border-secondary rounded-start-5 rounded-end-5 d-flex py-2 border-opacity-50 mb-1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div style="width: 15px;" class="me-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></div>
-                            <img src="https://e7.pngegg.com/pngimages/717/24/png-clipart-computer-icons-user-profile-user-account-avatar-heroes-silhouette-thumbnail.png" width="25" height="">
+                            <div style="width: 15px;" class="me-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
+                            </div>
+                            <img src="https://e7.pngegg.com/pngimages/717/24/png-clipart-computer-icons-user-profile-user-account-avatar-heroes-silhouette-thumbnail.png" width="25">
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="http://127.0.0.1:8000/">Accedi</a></li>
@@ -116,74 +118,73 @@
 </template>
 
 <style lang="scss" scoped>
-
 @use '../assets/scss/partials/variables' as *;
 
-    .input-wrapper {
-        width: 500px;
-        height: 60px;
-        border: 1px solid #e7e7e7;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.input-wrapper {
+    width: 500px;
+    height: 60px;
+    border: 1px solid #e7e7e7;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-        .input-container {
-            width: 90%;
-            
-            label {
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 500;
-            }
-
-            input {
-                width: 100%;
-                border: none;
-                border-radius: 25px;
-                padding: 0 20px;
-                margin-left: 5px;
-                
-                &:focus {
-                    outline: none;
-                }
-
-                &::placeholder {
-                    font-size: 15px;
-                }
-            }
+    .input-container {
+        width: 90%;
+        
+        label {
+            padding: 0 25px;
+            font-size: 12px;
+            font-weight: 500;
         }
 
-        .button-wrapper {
-            width: 10%;
-            padding-right: 3px;
+        input {
+            width: 100%;
+            border: none;
+            border-radius: 25px;
+            padding: 0 20px;
+            margin-left: 5px;
             
-            button {
-                width: 40px;
-                height: 40px;
-                background-color: $primary-color;
-                color: white;
-                border: none;
-
-                img {
-                    width: 15px;
-                    height: 15px;
-                }
+            &:focus {
+                outline: none;
             }
-        }
 
-        .my-results {
-            width: 500px;
-            top: 70px;
-            padding: 1rem 0;
-            background-color: white;
-            border-radius: 30px;
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-            z-index: 1;
-
-            li {
-                padding: 1.4rem;
-                &:hover {
-                    background-color: #f7f7f7;
-                }
+            &::placeholder {
+                font-size: 15px;
             }
         }
     }
+
+    .button-wrapper {
+        width: 10%;
+        padding-right: 3px;
+        
+        button {
+            width: 40px;
+            height: 40px;
+            background-color: $primary-color;
+            color: white;
+            border: none;
+
+            img {
+                width: 15px;
+                height: 15px;
+            }
+        }
+    }
+
+    .my-results {
+        width: 500px;
+        top: 70px;
+        padding: 1rem 0;
+        background-color: white;
+        border-radius: 30px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        z-index: 1;
+
+        li {
+            padding: 1.4rem;
+            &:hover {
+                background-color: #f7f7f7;
+            }
+        }
+    }
+}
 </style>
