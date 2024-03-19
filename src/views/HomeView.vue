@@ -12,6 +12,7 @@
             services: [],
             filteredServices: [],
             sponsors: [],
+            randomInts: [],
         }
     },
     watch: {
@@ -159,7 +160,7 @@
             <div v-if=" apartments == '' " class="d-flex">
                 <p class="fs-2">Nessun risultato disponibile</p>
             </div>
-            <div class="col-11 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-3" v-for="apartment in apartments">
+            <div class="col-11 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-3" v-for="(apartment, index) in apartments">
                 <div class="my-card" @click="$router.push({ name: 'show', params: { id: apartment.id} })">
                     <div class="img-wrapper position-relative mb-2 rounded-4 overflow-hidden " :class=" apartment.sponsors != '' ? 'blob' : '' ">
                         <img :src="apartment.img_url" class="img-fluid rounded-4 card-cover" >
@@ -167,7 +168,7 @@
                             Sponsorizzato
                         </div>
                         <div class="position-absolute top-0 start-0 ms-3 mt-3 badge rounded-pill text-bg-light p-2 my-badge" v-if="apartment.sponsors == ''">
-                            {{ parseInt(getRandomArbitrary(0, 3)) == 2 ? 'Amato dagli ospiti' : '' }}
+                            {{ index % 5 == 1 ? 'Amato dagli ospiti' : '' }}
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="position-absolute top-0 end-0 me-3 mt-3 my-heart" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false">
                             <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path>
