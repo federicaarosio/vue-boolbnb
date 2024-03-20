@@ -52,20 +52,20 @@
 
 <template>
     <nav class="navbar navbar-expand navbar-light bg-white shadow-sm py-3" :class=" this.$route.name == 'show' ? 'd-none d-md-block' : '' ">
-        <div :class=" this.$route.name == 'show' ? 'container' : 'container-fluid px-5' ">
+        <div :class=" this.$route.name == 'show' ? 'container' : 'container-fluid px-md-5' ">
 
-            <div class="col-4">
-                <RouterLink class="navbar-brand d-md-none" to="/">
+            <div class="col-4 d-none d-md-block">
+                <RouterLink class="navbar-brand d-lg-none" to="/">
                     <img src="../assets/img/logoBoolBnB.png" height="60">
                 </RouterLink>
     
-                <RouterLink class="navbar-brand d-none d-md-inline-block" to="/">
+                <RouterLink class="navbar-brand d-none d-lg-inline-block" to="/">
                     <img src="../assets/img/logoBoolBnB-desktop.png" height="60">
                 </RouterLink>
             </div>
 
-            <div class="col-4 d-flex justify-content-center ">
-                <div class="navbar-nav d-none d-lg-block " :class=" this.$route.name == 'show' ? 'd-lg-none' : '' ">
+            <div class="col-10 col-md-4 d-flex justify-content-center ">
+                <div class="navbar-nav d-lg-block " :class=" this.$route.name == 'show' ? 'd-lg-none' : '' ">
                     <div class="input-wrapper d-flex rounded-end-5 rounded-start-5 position-relative ">
                         <div class="input-container rounded-start-5 d-flex flex-column justify-content-center ">
                             <label class="">Dove</label>
@@ -97,7 +97,7 @@
                 </div>
             </div>
 
-            <div class="col-4 d-flex justify-content-end">
+            <div class="col-2 col-md-4 d-flex justify-content-end">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <button type="button" class="btn border border-secondary rounded-start-5 rounded-end-5 d-flex py-2 border-opacity-50 mb-1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -185,6 +185,25 @@
                 background-color: #f7f7f7;
             }
         }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .input-wrapper {
+        width: 300px;
+
+        .input-container {
+            width: 80%;
+        }
+
+        .button-wrapper {
+            width: 20%;
+        }
+    }
+
+
+    .my-results {
+        width: 350px !important;
     }
 }
 </style>

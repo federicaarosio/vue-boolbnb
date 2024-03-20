@@ -117,14 +117,14 @@
                             <hr>
                             <h2 class="fs-3 mb-4">Stanze e letti</h2>
                             <p>Stanze</p>
-                            <div class="button-wrapper d-flex mb-4">
-                                <button class="btn" :class="this.rooms == 0 ? 'active' : '' " @click="roomChange(0)">Qualsiasi</button>
-                                <button v-for="i in 8" class="btn" :class="this.rooms == i ? 'active' : '' " @click="roomChange(i)">{{ i }}</button>
+                            <div class="button-wrapper d-flex flex-wrap justify-content-between justify-content-md-start mb-4">
+                                <button class="btn mb-2 mb-md-0" :class="this.rooms == 0 ? 'active' : '' " @click="roomChange(0)">Qualsiasi</button>
+                                <button v-for="i in 8" class="btn mb-2 mb-md-0" :class="this.rooms == i ? 'active' : '' " @click="roomChange(i)">{{ i }}</button>
                             </div>
                             <p>Letti</p>
-                            <div class="button-wrapper d-flex mb-4">
-                                <button class="btn" :class="this.beds == 0 ? 'active' : '' " @click="bedChange(0)">Qualsiasi</button>
-                                <button v-for="i in 8" class="btn" :class="this.beds == i ? 'active' : '' " @click="bedChange(i)">{{ i }}</button>
+                            <div class="button-wrapper d-flex flex-wrap justify-content-between justify-content-md-start mb-4">
+                                <button class="btn mb-2 mb-md-0" :class="this.beds == 0 ? 'active' : '' " @click="bedChange(0)">Qualsiasi</button>
+                                <button v-for="i in 8" class="btn mb-2 mb-md-0" :class="this.beds == i ? 'active' : '' " @click="bedChange(i)">{{ i }}</button>
                             </div>
                             <hr>
                             <h2 class="fs-3 mb-4">Servizi</h2>

@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div class="col-12 d-flex mb-3" :class=" imageWidth > 1000 ? 'justify-content-center' : '' ">
-                <img ref="image" :src="apartment.img_url" class="rounded-4 object-fit-cover " :class=" imageWidth > 1000 ? 'w-100' : '' " height="750" @load="getImageSize">
+                <img ref="image" :src="apartment.img_url" class="rounded-4 object-fit-cover my-img" :class=" imageWidth > 1000 ? 'w-100' : '' " height="750" @load="getImageSize">
             </div>
             <div class="col-12 col-md-7">
                 <div class="row">
@@ -131,7 +131,7 @@
                         </p>
                         <p class="fs-6 fw-semibold m-0">
                             {{ apartment.address }} 
-                            <span class="badge rounded-pill my-bg-primary ms-1" v-if=" apartment.sponsors != '' ">Sponsorizzato</span>
+                            <span class="badge rounded-pill my-bg-primary ms-1 d-none d-md-inline" v-if=" apartment.sponsors != '' ">Sponsorizzato</span>
                         </p>
                         <p class="mb-1">{{ apartment.bed_number + 2 }} ospiti · {{ apartment.bed_number }} letti · {{ apartment.toilet_number }} bagni</p>
                         <hr>
@@ -171,7 +171,6 @@
                         <p class="fs-4 fw-semibold mb-3">Contattaci</p>
                         <p class="">Siamo entusiasti di farti conoscere il nostro nuovo appartamento disponibile! Per dettagli e domande, contattaci al più presto.</p>
                         <button class="btn btn-lg my-bg-primary rounded-4 mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Invia un messaggio</button>
-
                     </div>
                 </div>
             </div>
@@ -223,6 +222,12 @@
 <style lang="scss" scoped>
 @use '../assets/scss/app.scss' as *;
 @use '../assets/scss/partials/variables' as *;
+
+@media screen and (max-width: 576px) {
+    .my-img {
+        height: auto;
+    }
+}
 
 .my-alert {
     background-color: rgba(146, 130, 194, 0.6);
