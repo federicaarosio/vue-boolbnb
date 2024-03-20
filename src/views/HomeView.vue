@@ -57,6 +57,13 @@
             bedChange(bed) {
                 this.beds = bed;
             },
+            resetFilters() {
+                this.rooms = 0;
+                this.beds = 0;
+                this.range = 10;
+                this.filteredServices = [];
+                this.address = '';
+            }
         },
         props: {
             address: String,
@@ -103,6 +110,7 @@
                         </div>
                         <div class="modal-body">
                             <h2 class="fs-3 mb-4">Distanza di Ricerca</h2>
+                            {{ range }}
                             <div class="col-12 mb-4">
                                 <label for="range" class="form-label mb-3">Distanza: <span class="primary-color fw-bold ">{{ range }} km</span></label>
                                 <input type="range" v-model="range" class="form-range" min="1" max="20" step="1" id="range">
@@ -133,7 +141,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn" data-bs-dismiss="modal" @click="getApartments(this.rooms, this.beds, this.filteredServices, this.address, this.range);">Mostra</button>
+                            <button type="button" class="btn" @click="resetFilters()">Ripristina</button>
+                            <button type="button" class="btn" data-bs-dismiss="modal" @click="getApartments(this.rooms, this.beds, this.filteredServices, this.address, this.range)">Mostra</button>
                         </div>
                         </div>
                     </div>
