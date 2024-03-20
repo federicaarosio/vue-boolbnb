@@ -110,7 +110,6 @@
                         </div>
                         <div class="modal-body">
                             <h2 class="fs-3 mb-4">Distanza di Ricerca</h2>
-                            {{ range }}
                             <div class="col-12 mb-4">
                                 <label for="range" class="form-label mb-3">Distanza: <span class="primary-color fw-bold ">{{ range }} km</span></label>
                                 <input type="range" v-model="range" class="form-range" min="1" max="20" step="1" id="range">
