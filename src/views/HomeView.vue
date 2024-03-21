@@ -150,7 +150,7 @@
             <div v-if=" apartments == '' " class="d-flex">
                 <p class="fs-2">Nessun risultato disponibile</p>
             </div>
-            <div class="col-11 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-3" v-for="(apartment, index) in apartments">
+            <div class="col-11 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-3 my-cursor" v-for="(apartment, index) in apartments">
                 <div class="my-card" @click="$router.push({ name: 'show', params: { id: apartment.id} })">
                     <div class="img-wrapper position-relative mb-2 rounded-4 overflow-hidden " :class=" apartment.sponsors != '' ? 'blob' : '' ">
                         <img :src="apartment.img_url" class="img-fluid rounded-4 card-cover" >
@@ -329,5 +329,9 @@
         width: 15px;
         height: 15px;
     }
+}
+
+.my-cursor {
+    cursor: pointer;
 }
 </style>
